@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from './services/auth-guard.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -32,17 +33,29 @@ import { NoAccessComponent } from './no-access/no-access.component';
     FormsModule,
     HttpModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'admin', component: AdminComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'no-access', component: NoAccessComponent }
+      {
+        path: '',
+        component: HomeComponent
+      },
+      {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'no-access',
+        component: NoAccessComponent
+      }
     ])
   ],
   providers: [
     OrderService,
-
     AuthService,
-
+    AuthGuard,
     // For creating a mock back-end. You don't need these in a real app.
     fakeBackendProvider,
     MockBackend,
