@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, Http, BaseRequestOptions } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './services/auth-guard.service';
-
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -40,7 +40,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
       {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
         path: 'login',
@@ -56,6 +56,7 @@ import { NoAccessComponent } from './no-access/no-access.component';
     OrderService,
     AuthService,
     AuthGuard,
+    AdminAuthGuard,
     // For creating a mock back-end. You don't need these in a real app.
     fakeBackendProvider,
     MockBackend,
